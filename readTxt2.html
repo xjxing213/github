@@ -1,0 +1,32 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="file" id="files" name="files"/>
+<output id="list"></output>
+<script>
+    function handleFileSelect(evt) {
+        var files = evt.target.files; // FileList object
+		console.log(files)
+        for (var i = 0, f; f = files[i]; i++) {
+            var reader = new FileReader();
+            reader.onload = (function (theFile) {
+                return function (e) {
+				console.log(e.target.result);
+                    <!-- var span = document.createElement('span'); -->
+                    <!-- span.innerHTML = e.target.result; -->
+                    <!-- document.getElementById('list').insertBefore(span, null); -->
+                };
+            })(f);
+            reader.readAsText(f);
+        }
+    }
+
+    document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
+
+</body>
+</html>
